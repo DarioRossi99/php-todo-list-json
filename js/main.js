@@ -1,30 +1,48 @@
 const { createApp } = Vue;
 
 const app = createApp({
-    data() {
-        return {
-            toDoList: [],
-            formData: {},
-        };
+  data() {
+    return {
+      todoList: [],
+      todo: {},
+      index: Number,
+    };
+  },
+  methods: {
+    onSubmitTodo() {
+      axios
+        .post("API/createTodo.php", this.todo, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then((resp) => {
+          this.fetchTodo();
+        });
+      this.todo.WID = "";
     },
-    methods: {
-        fetchToDo() {
-            axios.get("api/todolist.php").then((resp) => {
-                this.toDoList = resp.data;
-            });
-        },
-        onToDo() {
-
-            console.log(this.formData);
-            axios.post("api/createTodo.php", this.formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            }).then((resp) => {
-                // ricarico la lista degli utenti
-                this.fetchToDo();
-            });
-        }
+    fetchTodo() {
+      axios.get("API/todo.php").then((resp) => {
+        this.todoList = resp.data;
+        console.log(resp.data);
+      });
     },
-    mounted() {
-        this.fetchToDo();
+    taskCompleted(i) {
+      this.todoList[i].status = !this.todoList[i].status;
+      console.log("TaskComplete", i);
     },
+    deleteTask(i) {
+      this.index = i;
+      axios
+        .post(
+          "API/deleteTodo.php",
+          { index: this.index },
+          {
+            headers: { "Content-Type": "multipart/form-data" },
+          }
+        )
+        .then((resp) => {
+          this.fetchTodo();
+        });
+      console.log("this.index", this.index);
+    },
+  },
 }).mount("#app");

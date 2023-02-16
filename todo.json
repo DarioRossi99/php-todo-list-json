@@ -1,19 +1,18 @@
 [
     {
-        "text": "latte",
+        "WID": "asf",
         "status": false
     },
     {
-        "text": "uova",
+        "WID": "sdf",
         "status": false
     },
     {
-        "text": "farina",
+        "WID": "sdf",
         "status": false
     },
     {
-        "text": "zucchero",
+        "WID": "sdg",
         "status": false
     }
-
 ]

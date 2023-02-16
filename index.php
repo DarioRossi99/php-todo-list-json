@@ -1,96 +1,49 @@
 <?php
-
+$ciao = $_POST["i"];
+var_dump($ciao);
 ?>
-
 <!DOCTYPE html>
-<html lang="it">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List - PHP</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
-<?php
-
-?>
-
-<!DOCTYPE html>
-<html lang="it">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List - PHP</title>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
     <link rel="stylesheet" href="css/style.css">
-
+    <title>Document</title>
 </head>
-
-<body>
-
+<body class="bg-dark">
     <div id="app">
-
-        <header>
-            <nav class="nav navbar justify-content-center">
-                <h1 class="text-success">Spesa da fare</h1>
-            </nav>
-        </header>
-
-        <main class="container">
-
-            <section class="bg-color">
-                <div class="mb-5 rounded-3">
-
-                <div class="container-todolist border rounded-3 bg-todolist-container">
-
-                    <div class="d-flex justify-content-between border-bottom p-3 align-items-baseline" v-for="element in toDoList">
-                        <p :class="(element.status === true ) ? 'text-decoration-line-through' : '' ">{{element.text}}</p>
-
-                        <a href="#" class="rounded-2 bg-danger p-2 text-white ">
-                            <i class="fa-solid fa-trash fs-6" ></i>
-                        </a>
-
-
+        <div class="container">
+            <div class="row flex-column align-items-center">
+                <div class="col-4">
+                    <h1 class="text-center text-white">Todo List</h1>
+                    <div class="bg-white">
+                        <div class="border-bottom d-flex justify-content-between p-3" v-for="(todo, i) in todoList">
+                            <div @click="taskCompleted(i)" :class="{divSelected: todo.status}" >
+                            {{todo.WID}}
+                            </div>
+                            <div>
+                                <button @click="deleteTask(i)" class="btn btn-danger">X</button>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-
+                <div class="col-4">
+                    <form @submit.prevent="onSubmitTodo" class="text-center mt-3">
+                        <div class="d-flex ">
+                            <input class="w-100" type="text" name="WID" v-model="todo.WID">
+                            <button class="btn btn-primary">Inserisci</button>
+                        </div>
+                    </form>
                 </div>
-
-            </section>
-
-            <section class="bg-color">
-
-                <form>
-
-                    <div class="input-group ">
-                        <input type="text" class="form-control" placeholder="" v-model="formData.text">
-                        <button class="btn btn-primary" @click.prevent="onToDo">Aggiungi</button>
-                    </div>
-
-                </form>
-
-            </section>
-        </main>
-
-
+            </div>
+        </div>
     </div>
-
-
-
     <script src="js/main.js"></script>
-</body>
-
+    </body>
 </html>
